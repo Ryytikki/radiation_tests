@@ -1,4 +1,4 @@
-from pytipsy import rtipsy
+from pytipsy import wtipsy
 import pynbody as pyn
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,9 +15,10 @@ sphereZ = [[],[]]
 
 # 0.1 diameter sphere
 rho = tau / 0.1 - 1
-nSphere = np.floor(nBase * ((4./3.) * np.pi * 0.1) * rho)
+nSphere = int(np.floor(nBase * ((4./3.) * np.pi * 0.1) * rho))
 
-radius = np.power(np.random.uniform(0.0, 0.1, (nSphere, 1)), 1/3.)
+radius = np.power(np.random.uniform(0.0, 1.0, (nSphere, 1)), 1/3.) * 0.01
+print max(radius)
 theta = np.random.uniform(0.0, 1.0, (nSphere, 1)) * np.pi
 phi = np.random.uniform(0.0, 1.0, (nSphere, 1)) * 2 * np.pi
 
@@ -28,7 +29,7 @@ sphereZ[0] = radius * np.cos(theta)
 header = {'time':0, 
           'n':nSphere,
           'ndim':3, 
-          'ngas':ng, 
+          'ngas':nSphere, 
           'ndark':0, 
           'nstar':0}
 
@@ -42,36 +43,36 @@ gas_particles = {'mass':(np.ones(nSphere) * mass),
                  'eps':np.ones(nSphere),
                  'zmetal':np.zeros(nSphere)}
 
-wtipsy(wdir + 'sphere01.std',header,gas_particles,[],[])
 
+wtipsy('sphere001.std',header,gas_particles,[],[])
 
-# 0.01 radius sphere
-rho = tau / 0.01 - 1
-nSphere = np.floor(nBase * ((4./3.) * np.pi * 0.01) * rho)
+# # 0.01 radius sphere
+# rho = tau / 0.01 - 1
+# nSphere = int(np.floor(nBase * ((4./3.) * np.pi * 0.01) * rho))
 
-radius = np.power(np.random.uniform(0.0, 0.01, (nSphere, 1)), 1/3.)
-theta = np.random.uniform(0.0, 1.0, (nSphere, 1)) * np.pi
-phi = np.random.uniform(0.0, 1.0, (nSphere, 1)) * 2 * np.pi
+# radius = np.power(np.random.uniform(0.0, 1.0, (nSphere, 1)), 1/3.) * 0.01
+# theta = np.random.uniform(0.0, 1.0, (nSphere, 1)) * np.pi
+# phi = np.random.uniform(0.0, 1.0, (nSphere, 1)) * 2 * np.pi
 
-sphereX[0] = radius * np.sin(theta) * np.cos(phi)
-sphereY[0] = radius * np.sin(theta) * np.sin(phi)
-sphereZ[0] = radius * np.cos(theta)
+# sphereX[0] = radius * np.sin(theta) * np.cos(phi)
+# sphereY[0] = radius * np.sin(theta) * np.sin(phi)
+# sphereZ[0] = radius * np.cos(theta)
 
-header = {'time':0, 
-          'n':nSphere,
-          'ndim':3, 
-          'ngas':ng, 
-          'ndark':0, 
-          'nstar':0}
+# header = {'time':0, 
+          # 'n':nSphere,
+          # 'ndim':3, 
+          # 'ngas':nSphere, 
+          # 'ndark':0, 
+          # 'nstar':0}
 
-gas_particles = {'mass':(np.ones(nSphere) * mass), 
-                 'x':sphereX[1], 'y':sphereY[1],'z':sphereZ[1],
-                 'vx':np.zeros(nSphere),'vy':np.zeros(nSphere),'vz':np.zeros(nSphere),
-                 'dens':np.zeros(nSphere), 
-                 'tempg':np.ones(nSphere),
-                 'h':np.zeros(nSphere), 
-                 'phi':np.zeros(nSphere),
-                 'eps':np.ones(nSphere),
-                 'zmetal':np.zeros(nSphere)}
+# gas_particles = {'mass':(np.ones(nSphere) * mass), 
+                 # 'x':sphereX[1], 'y':sphereY[1],'z':sphereZ[1],
+                 # 'vx':np.zeros(nSphere),'vy':np.zeros(nSphere),'vz':np.zeros(nSphere),
+                 # 'dens':np.zeros(nSphere), 
+                 # 'tempg':np.ones(nSphere),
+                 # 'h':np.zeros(nSphere), 
+                 # 'phi':np.zeros(nSphere),
+                 # 'eps':np.ones(nSphere),
+                 # 'zmetal':np.zeros(nSphere)}
 
-wtipsy(wdir + 'sphere001',header,gas_particles,[],[])
+# wtipsy('sphere001.std',header,gas_particles,[],[])
